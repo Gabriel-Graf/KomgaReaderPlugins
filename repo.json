@@ -1,0 +1,7 @@
+{
+  "name": "Komga Reader Plugins",
+  "plugins": [
+    { "packageName": "com.komgareader.preset.kindle", "name": "Kindle E-Ink Presets", "description": "Gedämpfte E-Ink-Farbprofile für andere Boox-/Kindle-Geräte", "type": "preset", "abiVersion": 1, "versionCode": 1, "versionName": "0.1.0", "apkUrl": "plugins/komga-eink-preset-kindle-0.1.0.apk", "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA" },
+    { "packageName": "com.komgareader.plugin.kavita", "name": "Kavita", "description": "Kavita-Server als Quelle (Manga/Comics/Bücher)", "type": "source", "abiVersion": 1, "versionCode": 1, "versionName": "0.1.0", "apkUrl": "plugins/komga-kavita-source-0.1.0.apk", "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA" }
+  ]
+}
