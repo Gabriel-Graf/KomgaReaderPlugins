@@ -16,7 +16,7 @@ und über den OS-Installer installiert.
       "packageName": "com.example.plugin",
       "name": "Anzeigename",
       "description": "Kurzbeschreibung",
-      "type": "source | preset",
+      "type": "source | preset | language | reader_preset",
       "abiVersion": 1,
       "versionCode": 1,
       "versionName": "0.1.0",
@@ -38,6 +38,10 @@ und über den OS-Installer installiert.
 |---|---|---|---|
 | Kindle E-Ink Presets | preset | 0.1.0 | `com.komgareader.preset.kindle` |
 | Kavita | source | 0.1.0 | `com.komgareader.plugin.kavita` |
+| Español | language | 0.1.0 | `com.komgareader.lang.es` |
+| Français | language | 0.1.0 | `com.komgareader.lang.fr` |
+| Italiano | language | 0.1.0 | `com.komgareader.lang.it` |
+| E-Ink Reader-Presets | reader_preset | 0.1.0 | `com.komgareader.preset.reader.eink` |
 
 > Hinweis: Die APKs sind aktuell mit dem Android-Debug-Keystore signiert (frühe Entwicklung).
 > Für ein Release werden sie mit einem stabilen Schlüssel neu signiert und der `fingerprint` im Index angepasst.

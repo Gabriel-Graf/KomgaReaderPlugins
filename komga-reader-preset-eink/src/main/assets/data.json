@@ -1,0 +1,8 @@
+[
+  {"abiVersion":2,"name":"E-Ink Roman komfortabel",
+   "settings":{"novelFontSizeEm":1.2,"novelLineHeight":1.4,"novelMarginPreset":"WIDE","novelTextAlign":"LEFT","deviceManagedRefresh":true}},
+  {"abiVersion":2,"name":"Webtoon dicht",
+   "settings":{"webtoonOverlapPercent":10}},
+  {"abiVersion":2,"name":"Roman serifenlos groß",
+   "settings":{"novelFontSizeEm":1.5,"novelFontWeight":500,"novelLineHeight":1.5,"novelMarginPreset":"NORMAL"}}
+]
