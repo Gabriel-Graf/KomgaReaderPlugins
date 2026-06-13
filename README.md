@@ -73,8 +73,8 @@ This replaces committing built APKs. The workflow needs four repository secrets
 see the comments at the top of the workflow. Use the same keystore the current APKs were signed
 with to keep the existing fingerprint (so installed plugins keep updating).
 
-> The `plugins/` folder currently holds committed APKs for the existing index. After the first
-> successful CI release it is obsolete (the index points at release assets) and can be removed.
+> APKs are no longer committed to the repo. They are built and signed by CI and published as
+> **GitHub Release assets**; `repo.json` points at those assets (see the release workflow above).
 
 ## Authoring a new plugin
 
