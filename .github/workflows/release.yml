@@ -1,0 +1,95 @@
+name: Build & Release Plugins
+
+# Builds every plugin APK on a version tag, signs them, publishes a GitHub Release
+# with the APKs as assets, then rewrites repo.json to point at those assets.
+#
+# This replaces committing built APKs into plugins/. After the first successful
+# release run, the committed plugins/*.apk folder is obsolete and can be removed
+# (repo.json will point at release assets, which the app resolves as absolute URLs).
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   PLUGIN_KEYSTORE_BASE64    base64 of the signing keystore (`base64 -w0 ks.jks`)
+#   PLUGIN_KEYSTORE_PASSWORD  keystore store password
+#   PLUGIN_KEY_ALIAS          key alias
+#   PLUGIN_KEY_PASSWORD       key password
+#
+# To keep the current F4:16:A7… fingerprint (so existing installs keep updating),
+# use the same keystore those APKs were signed with (the Android debug keystore:
+# storepass=android, alias=androiddebugkey, keypass=android). A different keystore
+# is fine too, but changes the fingerprint — a one-time re-install for users.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # create the release + commit the updated repo.json
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main   # commit the regenerated repo.json back to main
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Decode signing keystore
+        env:
+          KS_BASE64: ${{ secrets.PLUGIN_KEYSTORE_BASE64 }}
+        run: echo "$KS_BASE64" | base64 -d > "$RUNNER_TEMP/plugins.jks"
+
+      - name: Build release APKs
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Sign APKs and compute fingerprint
+        env:
+          KS_PASS: ${{ secrets.PLUGIN_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.PLUGIN_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.PLUGIN_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          mkdir -p dist
+          for d in komga-*/ ; do
+            m="${d%/}"
+            apk="$(find "$m/build/outputs/apk/release" -name '*.apk' 2>/dev/null | head -1 || true)"
+            [ -z "$apk" ] && continue
+            out="dist/$m-$VERSION.apk"
+            "$BT/zipalign" -f -p 4 "$apk" "$out"
+            "$BT/apksigner" sign --ks "$RUNNER_TEMP/plugins.jks" \
+              --ks-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" --key-pass "pass:$KEY_PASS" "$out"
+            echo "signed $out"
+          done
+          FP="$(keytool -list -v -keystore "$RUNNER_TEMP/plugins.jks" -storepass "$KS_PASS" -alias "$KEY_ALIAS" \
+                | grep -i 'SHA256:' | head -1 | sed 's/.*SHA256: *//')"
+          echo "FINGERPRINT=$FP" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Create GitHub Release with APK assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.apk
+
+      - name: Point repo.json at the release assets
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          BASE="https://github.com/$REPO/releases/download/$GITHUB_REF_NAME"
+          node tools/update-repo-for-release.mjs "$BASE" "$FINGERPRINT" "$VERSION"
+
+      - name: Commit updated repo.json to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add repo.json
+          git commit -m "chore(release): repo.json -> ${GITHUB_REF_NAME}" || { echo "repo.json unchanged"; exit 0; }
+          git push origin HEAD:main

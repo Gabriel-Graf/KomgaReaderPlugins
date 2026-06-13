@@ -1,0 +1,6 @@
+{
+  "abiVersion": 2,
+  "shell": { "navStyle": "DRAWER" },
+  "icons": { "Home": "Library" },
+  "theme": { "cornerRadius": 4 }
+}

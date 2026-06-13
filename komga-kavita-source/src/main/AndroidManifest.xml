@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:label="Kavita Source Plugin"
+        android:allowBackup="false">
+
+        <!--
+            Plugin-Erkennungs-Metadaten: Der Host-App-Classloader
+            erkennt dieses APK über PackageManager anhand dieser Einträge.
+
+            SOURCE: vollständiger Klassenname des SourcePlugin-Einstiegspunkts
+            ABI_VERSION: muss mit dem ABI-Gate des Hosts übereinstimmen
+        -->
+        <meta-data
+            android:name="com.komgareader.plugin.SOURCE"
+            android:value="com.komgareader.plugin.kavita.KavitaSourcePlugin" />
+
+        <meta-data
+            android:name="com.komgareader.plugin.ABI_VERSION"
+            android:value="1" />
+
+    </application>
+
+</manifest>

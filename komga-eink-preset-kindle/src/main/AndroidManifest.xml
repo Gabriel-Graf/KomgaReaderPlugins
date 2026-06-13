@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="Kindle E-Ink Presets" android:hasCode="false">
+        <meta-data
+            android:name="com.komgareader.plugin.COLOR_PRESETS"
+            android:value="color_presets.json" />
+        <meta-data
+            android:name="com.komgareader.plugin.ABI_VERSION"
+            android:value="1" />
+    </application>
+</manifest>

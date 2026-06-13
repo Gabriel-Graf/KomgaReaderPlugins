@@ -13,4 +13,13 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "KomgaReaderPlugins"
-include(":komga-lang-es", ":komga-lang-fr", ":komga-lang-it", ":komga-reader-preset-eink")
+include(
+    ":komga-lang-es",
+    ":komga-lang-fr",
+    ":komga-lang-it",
+    ":komga-reader-preset-eink",
+    ":komga-eink-preset-kindle",
+    ":komga-ui-pack-aurora",
+    ":komga-ui-pack-sample",
+    ":komga-kavita-source",
+)

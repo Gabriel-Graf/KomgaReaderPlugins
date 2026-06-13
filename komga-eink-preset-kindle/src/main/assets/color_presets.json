@@ -1,0 +1,4 @@
+[
+  { "abiVersion": 1, "name": "Kindle Warm", "saturation": 0.9, "contrast": 1.1, "brightness": 0.05 },
+  { "abiVersion": 1, "name": "Kindle Mono", "saturation": 0.5, "contrast": 1.2, "brightness": 0.0 }
+]

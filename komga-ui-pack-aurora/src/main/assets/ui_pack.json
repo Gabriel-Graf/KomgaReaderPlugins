@@ -1,0 +1,19 @@
+{
+  "abiVersion": 2,
+  "shell": { "navStyle": "FLOATING_NAV" },
+  "theme": {
+    "cornerRadius": 16,
+    "elevation": true,
+    "typography": { "headlineWeight": 700, "titleWeight": 700, "headlineTrackingEm": -0.02 },
+    "light": {
+      "background": "#FFFFFF", "surface": "#EDEDEF", "navDock": "#E1E1E4",
+      "accent": "#3D5AFE", "onAccent": "#FFFFFF",
+      "onBackground": "#1A1B1E", "onSurfaceVariant": "#6B6C70", "outline": "#D3D3D6"
+    },
+    "dark": {
+      "background": "#15171C", "surface": "#1C1F26", "navDock": "#1C1F26",
+      "accent": "#3D5AFE", "onAccent": "#FFFFFF",
+      "onBackground": "#E9EAEE", "onSurfaceVariant": "#9296A0", "outline": "#2E313A"
+    }
+  }
+}
