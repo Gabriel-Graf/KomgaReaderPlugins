@@ -16,6 +16,7 @@ downloads it, verifies its signature against the index entry, and installs it vi
 | `komga-reader-preset-eink` | `com.komgareader.preset.reader.eink` | reader_preset | Reader setting presets tuned for E-Ink |
 | `komga-ui-pack-aurora` | `com.komgareader.uipack.aurora` | ui_pack | Modern mobile look (Slate + Cobalt, floating nav) for LCD |
 | `komga-lang-{es,fr,it}` | `com.komgareader.lang.*` | language | Spanish / French / Italian UI translations |
+| `komga-font-{ebgaramond,lora,merriweather,sourceserif,atkinson}` | `com.komgareader.font.*` | font | Five free OFL-1.1 reading fonts (EB Garamond, Lora, Merriweather, Source Serif 4, Atkinson Hyperlegible Next) |
 | `komga-ui-pack-sample` | `com.komgareader.uipack.sample` | — | A minimal UI-pack **template** for plugin authors (not indexed) |
 
 All but the Kavita source are **data-only** plugins: an APK with no code (`android:hasCode="false"`),
@@ -32,7 +33,7 @@ it implements the source contract and links the shaded `plugin-sdk` as `compileO
       "packageName": "com.example.plugin",
       "name": "Display name",
       "description": "Short description",
-      "type": "source | preset | language | reader_preset | ui_pack",
+      "type": "source | preset | language | reader_preset | ui_pack | font",
       "abiVersion": 1,
       "versionCode": 1,
       "versionName": "0.1.0",

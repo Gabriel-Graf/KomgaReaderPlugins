@@ -77,6 +77,76 @@
       "versionName": "0.1.0",
       "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-lang-it-0.1.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
+    },
+    {
+      "packageName": "com.komgareader.font.ebgaramond",
+      "name": "EB Garamond",
+      "description": "Classic Garamond revival serif for long-form reading",
+      "type": "font",
+      "abiVersion": 2,
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-font-ebgaramond-0.1.0.apk",
+      "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
+      "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/ebgaramond.png",
+      "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-ebgaramond/README.md",
+      "license": "OFL-1.1"
+    },
+    {
+      "packageName": "com.komgareader.font.lora",
+      "name": "Lora",
+      "description": "Lora — serif with moderate contrast, well suited to reading",
+      "type": "font",
+      "abiVersion": 2,
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-font-lora-0.1.0.apk",
+      "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
+      "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/lora.png",
+      "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-lora/README.md",
+      "license": "OFL-1.1"
+    },
+    {
+      "packageName": "com.komgareader.font.merriweather",
+      "name": "Merriweather",
+      "description": "Merriweather — highly readable serif",
+      "type": "font",
+      "abiVersion": 2,
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-font-merriweather-0.1.0.apk",
+      "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
+      "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/merriweather.png",
+      "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-merriweather/README.md",
+      "license": "OFL-1.1"
+    },
+    {
+      "packageName": "com.komgareader.font.sourceserif",
+      "name": "Source Serif 4",
+      "description": "Source Serif 4 by Adobe — a clean reading serif",
+      "type": "font",
+      "abiVersion": 2,
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-font-sourceserif-0.1.0.apk",
+      "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
+      "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/sourceserif.png",
+      "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-sourceserif/README.md",
+      "license": "OFL-1.1"
+    },
+    {
+      "packageName": "com.komgareader.font.atkinson",
+      "name": "Atkinson Hyperlegible Next",
+      "description": "Atkinson Hyperlegible Next — optimised for legibility",
+      "type": "font",
+      "abiVersion": 2,
+      "versionCode": 1,
+      "versionName": "0.1.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.1.0/komga-font-atkinson-0.1.0.apk",
+      "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
+      "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/atkinson.png",
+      "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-atkinson/README.md",
+      "license": "OFL-1.1"
     }
   ]
 }

@@ -22,4 +22,9 @@ include(
     ":komga-ui-pack-aurora",
     ":komga-ui-pack-sample",
     ":komga-kavita-source",
+    ":komga-font-ebgaramond",
+    ":komga-font-lora",
+    ":komga-font-merriweather",
+    ":komga-font-sourceserif",
+    ":komga-font-atkinson",
 )

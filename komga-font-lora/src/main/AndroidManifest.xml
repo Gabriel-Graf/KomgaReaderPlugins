@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="Lora" android:hasCode="false">
+        <meta-data android:name="com.komgareader.plugin.DATA_CATEGORY" android:value="FONT" />
+        <meta-data android:name="com.komgareader.plugin.DATA_ASSET" android:value="fonts.json" />
+        <meta-data android:name="com.komgareader.plugin.ABI_VERSION" android:value="2" />
+        <meta-data android:name="com.komgareader.plugin.LICENSE" android:value="OFL-1.1" />
+    </application>
+</manifest>
