@@ -27,4 +27,9 @@ include(
     ":komga-font-merriweather",
     ":komga-font-sourceserif",
     ":komga-font-atkinson",
+    ":komga-calibre-source",
 )
+
+// Local-only YOLO panel-model plugin: gitignored (model is license-encumbered, never pushed).
+// Included only when the module is present locally, so a fresh clone still builds.
+if (file("komga-panel-model-yolo").exists()) include(":komga-panel-model-yolo")

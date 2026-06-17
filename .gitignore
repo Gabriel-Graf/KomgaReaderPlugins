@@ -4,3 +4,7 @@ local.properties
 .idea/
 *.iml
 dist/
+__pycache__/
+
+# Local-only YOLO panel-model plugin — model is license-encumbered, never push.
+komga-panel-model-yolo/

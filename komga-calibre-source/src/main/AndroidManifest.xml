@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:label="Calibre Source Plugin"
+        android:allowBackup="false">
+
+        <!-- Host discovers this APK via PackageManager using these meta-data entries. -->
+        <meta-data
+            android:name="com.komgareader.plugin.SOURCE"
+            android:value="com.komgareader.plugin.calibre.CalibreSourcePlugin" />
+
+        <meta-data
+            android:name="com.komgareader.plugin.ABI_VERSION"
+            android:value="1" />
+
+    </application>
+</manifest>
