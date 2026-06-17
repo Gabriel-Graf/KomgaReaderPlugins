@@ -11,8 +11,8 @@ android {
         applicationId = "com.komgareader.plugin.kavita"
         minSdk = 28
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = (project.findProperty("pluginVersionCode") as String).toInt()
+        versionName = project.findProperty("pluginVersionName") as String
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
