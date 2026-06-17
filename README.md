@@ -12,6 +12,7 @@ downloads it, verifies its signature against the index entry, and installs it vi
 | Plugin | Package | Type | What it does |
 |---|---|---|---|
 | `komga-kavita-source` | `com.komgareader.plugin.kavita` | source | Kavita server as a reading source (code plugin) |
+| `komga-calibre-source` | `com.komgareader.plugin.calibre` | source | Calibre Content Server as a reading source, grouped by series (code plugin) |
 | `komga-eink-preset-kindle` | `com.komgareader.preset.kindle` | preset | Muted E-Ink colour profiles for other devices |
 | `komga-reader-preset-eink` | `com.komgareader.preset.reader.eink` | reader_preset | Reader setting presets tuned for E-Ink |
 | `komga-ui-pack-aurora` | `com.komgareader.uipack.aurora` | ui_pack | Modern mobile look (Slate + Cobalt, floating nav) for LCD |
@@ -19,9 +20,10 @@ downloads it, verifies its signature against the index entry, and installs it vi
 | `komga-font-{ebgaramond,lora,merriweather,sourceserif,atkinson}` | `com.komgareader.font.*` | font | Five free OFL-1.1 reading fonts (EB Garamond, Lora, Merriweather, Source Serif 4, Atkinson Hyperlegible Next) |
 | `komga-ui-pack-sample` | `com.komgareader.uipack.sample` | — | A minimal UI-pack **template** for plugin authors (not indexed) |
 
-All but the Kavita source are **data-only** plugins: an APK with no code (`android:hasCode="false"`),
-carrying a single JSON asset and discovery metadata in its manifest. Kavita is a **code** plugin —
-it implements the source contract and links the shaded `plugin-sdk` as `compileOnly`.
+All but the two source plugins (Kavita, Calibre) are **data-only** plugins: an APK with no code
+(`android:hasCode="false"`), carrying a single JSON asset and discovery metadata in its manifest.
+The source plugins are **code** plugins — they implement the source contract and link the shaded
+`plugin-sdk` as `compileOnly`.
 
 ## Index format (`repo.json`)
 
@@ -35,8 +37,8 @@ it implements the source contract and links the shaded `plugin-sdk` as `compileO
       "description": "Short description",
       "type": "source | preset | language | reader_preset | ui_pack | font",
       "abiVersion": 1,
-      "versionCode": 1,
-      "versionName": "0.1.0",
+      "versionCode": 30000,
+      "versionName": "0.3.0",
       "apkUrl": "https://.../plugin.apk",
       "fingerprint": "AA:BB:...:FF"
     }
@@ -46,11 +48,15 @@ it implements the source contract and links the shaded `plugin-sdk` as `compileO
 
 `apkUrl` may be absolute or relative to `repo.json`. `fingerprint` is the signing cert's SHA-256;
 the app pins it (trust-on-first-use) and refuses an APK whose signature doesn't match.
+`name`/`description`/`type`/`abiVersion` are the hand-maintained source of truth; `apkUrl`,
+`fingerprint`, `versionName` and `versionCode` are stamped by CI on each release (see below).
+`versionCode` follows `major*10000 + minor*100 + patch` (so `0.3.1` → `30001`) and drives the app's
+update detection.
 
 ## Building locally
 
-Requires JDK 17 + Android SDK (API 34). The Kavita code plugin links a vendored shaded SDK jar
-(`libs/plugin-sdk-0.1.0.jar`, the host project's `:plugin-sdk` output).
+Requires JDK 17 + Android SDK (API 34). The code plugins (Kavita, Calibre) link a vendored shaded
+SDK jar (`libs/plugin-sdk-0.1.0.jar`, the host project's `:plugin-sdk` output).
 
 ```bash
 ./gradlew assembleDebug                       # build every plugin (debug APKs)
@@ -62,25 +68,32 @@ Debug APKs are signed with your local Android debug keystore (`~/.android/debug.
 
 ## Releasing (CI)
 
-Pushing a `v*` tag triggers `.github/workflows/release.yml`, which:
+Plugins are released **independently, one at a time**. Pushing a per-plugin tag
+`<moduleDir>-v<semver>` (e.g. `komga-calibre-source-v0.3.1`) triggers
+`.github/workflows/release.yml`, which:
 
-1. builds and signs every plugin's release APK,
-2. publishes a GitHub **Release** with the APKs as assets,
-3. rewrites `repo.json` (via `tools/update-repo-for-release.mjs`) to point each entry at the
-   release asset, stamps the signing fingerprint and version, and commits it to `main`.
+1. parses the module + version from the tag and derives `versionCode` (`major*10000 + minor*100 + patch`),
+2. builds and signs **only that module's** release APK (`-PpluginVersionName`/`-PpluginVersionCode`
+   inject the version into the build),
+3. publishes a GitHub **Release** (named for the tag) with that single APK as its asset,
+4. updates **only that plugin's** `repo.json` entry (via `tools/update-repo-for-release.mjs`) —
+   apkUrl, fingerprint, versionName, versionCode — and commits it to `main`. All other entries are
+   left untouched.
 
-This replaces committing built APKs. The workflow needs four repository secrets
-(`PLUGIN_KEYSTORE_BASE64`, `PLUGIN_KEYSTORE_PASSWORD`, `PLUGIN_KEY_ALIAS`, `PLUGIN_KEY_PASSWORD`) —
-see the comments at the top of the workflow. Use the same keystore the current APKs were signed
-with to keep the existing fingerprint (so installed plugins keep updating).
+So a fix to one plugin bumps only that plugin's version; the others keep their existing release.
+The workflow needs four repository secrets (`PLUGIN_KEYSTORE_BASE64`, `PLUGIN_KEYSTORE_PASSWORD`,
+`PLUGIN_KEY_ALIAS`, `PLUGIN_KEY_PASSWORD`) — see the comments at the top of the workflow. Use the
+same keystore the current APKs were signed with to keep the existing fingerprint (so installed
+plugins keep updating).
 
-> APKs are no longer committed to the repo. They are built and signed by CI and published as
-> **GitHub Release assets**; `repo.json` points at those assets (see the release workflow above).
+> APKs are not committed to the repo. They are built and signed by CI and published as **GitHub
+> Release assets**; `repo.json` points at those assets.
 
 ## Authoring a new plugin
 
 Copy `komga-ui-pack-sample` (data-only) or `komga-kavita-source` (code), give it a unique package
-name, add it to `settings.gradle.kts`, and add an entry to `repo.json`. Plugin types, the ABI
+name, add it to `settings.gradle.kts`, and add an entry to `repo.json`. To release it, push a
+`<moduleDir>-v<semver>` tag (e.g. `komga-myplugin-v0.1.0`). Plugin types, the ABI
 contract, and the capability model are documented in the host repo
 (`docs/ARCHITECTURE.md` → Plugins, and `docs/superpowers/specs/`). Data-only plugins declare their
 category via manifest metadata (`com.komgareader.plugin.DATA_CATEGORY` / `DATA_ASSET` /
