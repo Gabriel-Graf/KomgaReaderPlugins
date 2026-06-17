@@ -1,37 +1,34 @@
 #!/usr/bin/env node
-// Rewrites repo.json for a release: points every plugin's apkUrl at the GitHub
-// Release asset for the given tag, and stamps the signing-key fingerprint + version.
-//
-// repo.json stays the hand-maintained source of truth for name/description/type/
-// abiVersion; this script only fills the build-derived fields on release. The
-// fingerprint is the signing keystore's cert SHA-256 (one key signs every APK, so
-// every entry shares one fingerprint) — read it once with:
-//   keytool -list -v -keystore <ks> -alias <alias> -storepass <pw> | grep SHA256
+// Rewrites ONE plugin's entry in repo.json for a per-plugin release: points its apkUrl at the
+// release asset for the given tag and stamps fingerprint/versionName/versionCode. Every other
+// entry is left untouched. repo.json stays the hand-maintained source of truth for
+// name/description/type/abiVersion.
 //
 // Usage:
-//   node tools/update-repo-for-release.mjs <releaseBaseUrl> <fingerprint> <versionName> [repoJsonPath]
-// Example:
-//   node tools/update-repo-for-release.mjs \
-//     https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0 \
-//     F4:16:...:DA 0.2.0
+//   node tools/update-repo-for-release.mjs <moduleDir> <releaseBaseUrl> <fingerprint> <versionName> <versionCode> [repoJsonPath]
 import { readFileSync, writeFileSync } from 'node:fs'
-import { basename } from 'node:path'
 
-const [, , releaseBaseUrl, fingerprint, versionName, repoPath = 'repo.json'] = process.argv
-if (!releaseBaseUrl || !fingerprint || !versionName) {
-  console.error('usage: update-repo-for-release.mjs <releaseBaseUrl> <fingerprint> <versionName> [repoJsonPath]')
+const [, , moduleDir, releaseBaseUrl, fingerprint, versionName, versionCode, repoPath = 'repo.json'] = process.argv
+if (!moduleDir || !releaseBaseUrl || !fingerprint || !versionName || !versionCode) {
+  console.error('usage: update-repo-for-release.mjs <moduleDir> <releaseBaseUrl> <fingerprint> <versionName> <versionCode> [repoJsonPath]')
   process.exit(1)
 }
 
 const repo = JSON.parse(readFileSync(repoPath, 'utf8'))
 const base = releaseBaseUrl.replace(/\/+$/, '')
-for (const p of repo.plugins) {
-  // The committed basename is "<module>-<oldVersion>.apk"; re-stamp the version
-  // segment so the release asset name tracks the tag (CI names APKs the same way).
-  const apk = basename(p.apkUrl).replace(/-\d+\.\d+\.\d+\.apk$/, `-${versionName}.apk`)
-  p.apkUrl = `${base}/${apk}`
-  p.fingerprint = fingerprint
-  p.versionName = versionName
+const prefix = `${moduleDir}-`
+const matches = repo.plugins.filter((p) => {
+  const name = p.apkUrl.split('/').pop()
+  return name.startsWith(prefix)
+})
+if (matches.length !== 1) {
+  console.error(`expected exactly one entry for module "${moduleDir}", found ${matches.length}`)
+  process.exit(2)
 }
+const p = matches[0]
+p.apkUrl = `${base}/${moduleDir}-${versionName}.apk`
+p.fingerprint = fingerprint
+p.versionName = versionName
+p.versionCode = Number(versionCode)
 writeFileSync(repoPath, JSON.stringify(repo, null, 2) + '\n')
-console.log(`Updated ${repo.plugins.length} entries → ${base}/... (fingerprint ${fingerprint.slice(0, 11)}…, version ${versionName})`)
+console.log(`Updated ${p.packageName} → ${p.apkUrl} (vc ${p.versionCode})`)
