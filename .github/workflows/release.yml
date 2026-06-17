@@ -1,29 +1,17 @@
-name: Build & Release Plugins
+name: Build & Release Plugin
 
-# Builds every plugin APK on a version tag, signs them, publishes a GitHub Release
-# with the APKs as assets, then rewrites repo.json to point at those assets.
+# Builds ONE plugin APK on a per-plugin version tag "<module>-v<semver>", signs it, publishes a
+# GitHub Release with that single APK asset, then updates only that plugin's repo.json entry.
 #
-# This replaces committing built APKs into plugins/. After the first successful
-# release run, the committed plugins/*.apk folder is obsolete and can be removed
-# (repo.json will point at release assets, which the app resolves as absolute URLs).
-#
-# Required repository secrets (Settings → Secrets and variables → Actions):
-#   PLUGIN_KEYSTORE_BASE64    base64 of the signing keystore (`base64 -w0 ks.jks`)
-#   PLUGIN_KEYSTORE_PASSWORD  keystore store password
-#   PLUGIN_KEY_ALIAS          key alias
-#   PLUGIN_KEY_PASSWORD       key password
-#
-# To keep the current F4:16:A7… fingerprint (so existing installs keep updating),
-# use the same keystore those APKs were signed with (the Android debug keystore:
-# storepass=android, alias=androiddebugkey, keypass=android). A different keystore
-# is fine too, but changes the fingerprint — a one-time re-install for users.
+# Required repository secrets: PLUGIN_KEYSTORE_BASE64, PLUGIN_KEYSTORE_PASSWORD, PLUGIN_KEY_ALIAS,
+# PLUGIN_KEY_PASSWORD (same shared keystore → unchanged fingerprint).
 
 on:
   push:
-    tags: ['v*']
+    tags: ['*-v*']
 
 permissions:
-  contents: write   # create the release + commit the updated repo.json
+  contents: write
 
 jobs:
   release:
@@ -31,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main   # commit the regenerated repo.json back to main
+          ref: main
 
       - uses: actions/setup-java@v4
         with:
@@ -40,50 +28,58 @@ jobs:
 
       - uses: android-actions/setup-android@v3
 
+      - name: Parse tag → module + version + versionCode
+        run: |
+          set -euo pipefail
+          TAG="$GITHUB_REF_NAME"
+          MODULE="${TAG%-v*}"
+          VERSION="${TAG##*-v}"
+          if [ ! -d "$MODULE" ]; then echo "::error::module dir '$MODULE' not found for tag '$TAG'"; exit 1; fi
+          if ! echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then echo "::error::bad version '$VERSION'"; exit 1; fi
+          IFS=. read -r MA MI PA <<< "$VERSION"
+          VCODE=$(( MA*10000 + MI*100 + PA ))
+          echo "MODULE=$MODULE" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "VCODE=$VCODE" >> "$GITHUB_ENV"
+
       - name: Decode signing keystore
         env:
           KS_BASE64: ${{ secrets.PLUGIN_KEYSTORE_BASE64 }}
         run: echo "$KS_BASE64" | base64 -d > "$RUNNER_TEMP/plugins.jks"
 
-      - name: Build release APKs
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+      - name: Build release APK
+        run: ./gradlew ":$MODULE:assembleRelease" --no-daemon --stacktrace -PpluginVersionName="$VERSION" -PpluginVersionCode="$VCODE"
 
-      - name: Sign APKs and compute fingerprint
+      - name: Sign APK and compute fingerprint
         env:
           KS_PASS: ${{ secrets.PLUGIN_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.PLUGIN_KEY_ALIAS }}
           KEY_PASS: ${{ secrets.PLUGIN_KEY_PASSWORD }}
         run: |
           set -euo pipefail
-          VERSION="${GITHUB_REF_NAME#v}"
           BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          apk="$(find "$MODULE/build/outputs/apk/release" -name '*.apk' | head -1)"
+          [ -z "$apk" ] && { echo "::error::no release APK for $MODULE"; exit 1; }
           mkdir -p dist
-          for d in komga-*/ ; do
-            m="${d%/}"
-            apk="$(find "$m/build/outputs/apk/release" -name '*.apk' 2>/dev/null | head -1 || true)"
-            [ -z "$apk" ] && continue
-            out="dist/$m-$VERSION.apk"
-            "$BT/zipalign" -f -p 4 "$apk" "$out"
-            "$BT/apksigner" sign --ks "$RUNNER_TEMP/plugins.jks" \
-              --ks-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" --key-pass "pass:$KEY_PASS" "$out"
-            echo "signed $out"
-          done
+          out="dist/$MODULE-$VERSION.apk"
+          "$BT/zipalign" -f -p 4 "$apk" "$out"
+          "$BT/apksigner" sign --ks "$RUNNER_TEMP/plugins.jks" \
+            --ks-pass "pass:$KS_PASS" --ks-key-alias "$KEY_ALIAS" --key-pass "pass:$KEY_PASS" "$out"
           FP="$(keytool -list -v -keystore "$RUNNER_TEMP/plugins.jks" -storepass "$KS_PASS" -alias "$KEY_ALIAS" \
                 | grep -i 'SHA256:' | head -1 | sed 's/.*SHA256: *//')"
           echo "FINGERPRINT=$FP" >> "$GITHUB_ENV"
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
-      - name: Create GitHub Release with APK assets
+      - name: Create GitHub Release with the APK asset
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.apk
+          files: dist/${{ env.MODULE }}-${{ env.VERSION }}.apk
 
-      - name: Point repo.json at the release assets
+      - name: Point this plugin's repo.json entry at the release asset
         env:
           REPO: ${{ github.repository }}
         run: |
           BASE="https://github.com/$REPO/releases/download/$GITHUB_REF_NAME"
-          node tools/update-repo-for-release.mjs "$BASE" "$FINGERPRINT" "$VERSION"
+          node tools/update-repo-for-release.mjs "$MODULE" "$BASE" "$FINGERPRINT" "$VERSION" "$VCODE"
 
       - name: Commit updated repo.json to main
         run: |
@@ -91,5 +87,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add repo.json
-          git commit -m "chore(release): repo.json -> ${GITHUB_REF_NAME}" || { echo "repo.json unchanged"; exit 0; }
+          git commit -m "chore(release): ${GITHUB_REF_NAME}" || { echo "repo.json unchanged"; exit 0; }
           git push origin HEAD:main
