@@ -8,8 +8,8 @@
       "type": "source",
       "abiVersion": 1,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-kavita-source-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-kavita-source-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -19,8 +19,8 @@
       "type": "source",
       "abiVersion": 1,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-calibre-source-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-calibre-source-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-calibre-source/README.md"
     },
@@ -31,8 +31,8 @@
       "type": "preset",
       "abiVersion": 1,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-eink-preset-kindle-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-eink-preset-kindle-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -42,8 +42,8 @@
       "type": "reader_preset",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-reader-preset-eink-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-reader-preset-eink-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -53,8 +53,8 @@
       "type": "ui_pack",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-ui-pack-aurora-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-ui-pack-aurora-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -64,8 +64,8 @@
       "type": "language",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-lang-es-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-lang-es-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -75,8 +75,8 @@
       "type": "language",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-lang-fr-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-lang-fr-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -86,8 +86,8 @@
       "type": "language",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-lang-it-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-lang-it-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
@@ -97,8 +97,8 @@
       "type": "font",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-font-ebgaramond-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-font-ebgaramond-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/ebgaramond.png",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-ebgaramond/README.md",
@@ -111,8 +111,8 @@
       "type": "font",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-font-lora-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-font-lora-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/lora.png",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-lora/README.md",
@@ -125,8 +125,8 @@
       "type": "font",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-font-merriweather-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-font-merriweather-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/merriweather.png",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-merriweather/README.md",
@@ -139,8 +139,8 @@
       "type": "font",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-font-sourceserif-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-font-sourceserif-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/sourceserif.png",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-sourceserif/README.md",
@@ -153,8 +153,8 @@
       "type": "font",
       "abiVersion": 2,
       "versionCode": 1,
-      "versionName": "0.2.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.2.0/komga-font-atkinson-0.2.0.apk",
+      "versionName": "0.3.0",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-font-atkinson-0.3.0.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA",
       "previewUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/specimens/atkinson.png",
       "readmeUrl": "https://raw.githubusercontent.com/Gabriel-Graf/KomgaReaderPlugins/main/komga-font-atkinson/README.md",
