@@ -7,9 +7,9 @@
       "description": "Kavita server as a source (manga / comics / books)",
       "type": "source",
       "abiVersion": 1,
-      "versionCode": 1,
-      "versionName": "0.3.0",
-      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/v0.3.0/komga-kavita-source-0.3.0.apk",
+      "versionCode": 201,
+      "versionName": "0.2.1",
+      "apkUrl": "https://github.com/Gabriel-Graf/KomgaReaderPlugins/releases/download/komga-kavita-source-v0.2.1/komga-kavita-source-0.2.1.apk",
       "fingerprint": "F4:16:A7:F7:44:DE:08:44:8F:E9:99:1C:AC:DB:2A:19:7E:14:82:DA:55:AE:2C:18:5F:EC:C6:24:C6:C0:68:DA"
     },
     {
